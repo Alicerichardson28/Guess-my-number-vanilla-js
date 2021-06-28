@@ -12,6 +12,7 @@
 
 //javascript method giv you a random number 1 -10
 const secretNumber = Math.trunc(Math.random()*20)+1;
+let score = 20;
 document.querySelector('.number').textContent = secretNumber;
 
 //function expression inside event listener 
@@ -21,9 +22,28 @@ document.querySelector('.check').addEventListener('click', function() {
 
     //boolean
     //!guess = 0, it's falsy value 
-    if(!guess) {
-        document.querySelector('.message').textContent = '⛔️ No secretNumber';
-    } else if (guess === secretNumber){
-        document.querySelector('.message').textContent = '🎉 Correct Number!';
+    if (!guess) {
+      document.querySelector('.message').textContent = '⛔️ No secretNumber';
+    } else if (guess === secretNumber) {
+      document.querySelector('.message').textContent = '🎉 Correct Number!';
+    } else if (guess > secretNumber) {
+      if(score > 1){
+         document.querySelector('.message').textContent = '📈 Too high!';
+         score = score - 1;
+         document.querySelector('.score').textContent = score;
+      } else {
+        document.querySelector('.message').textContent = 'You lost the game!';
+        document.querySelector('.score').textContent = 0;
+      }
+     
+    } else if (guess < secretNumber) {
+      if(score > 1){
+        document.querySelector('.message').textContent = '📉 Too Low!';
+        score--;  
+        document.querySelector('.score').textContent = score;
+      } else {
+        document.querySelector('.message').textContent = 'You lost the game!';
+        document.querySelector('.score').textContent = 0;
+      }    
     }
 })
