@@ -14,6 +14,9 @@ let secretNumber = Math.trunc(Math.random() * 20) + 1;
 let score = 20;
 let highscore = 0
 
+const displayMessage = function(message){
+    document.querySelector('.message').textContent = message;
+}
 
 //function expression inside event listener
 document.querySelector('.check').addEventListener('click', function () {
@@ -24,11 +27,11 @@ document.querySelector('.check').addEventListener('click', function () {
   //!guess = 0, it's falsy value
   if (!guess) {
     //When there is no input
-    document.querySelector('.message').textContent = '⛔️ No secretNumber';
+    displayMessage('⛔️ No secretNumber');
 
     //when player wins
   } else if (guess === secretNumber) {
-    document.querySelector('.message').textContent = '🎉 Correct Number!';
+    displayMessage('🎉 Correct Number!');
     document.querySelector('.number').textContent = secretNumber;
     document.querySelector('body').style.backgroundColor = '#60b347';
     document.querySelector('.number').style.width = '30rem';
@@ -41,16 +44,20 @@ document.querySelector('.check').addEventListener('click', function () {
     //When guess is wrong
   } else if (guess !== secretNumber) {
     if (score > 1) {
-      document.querySelector('.message').textContent =
-        guess > secretNumber ? '📈 Too high!' : '📉 Too Low!';
+    //   document.querySelector('.message').textContent =
+    //     guess > secretNumber ? '📈 Too high!' : '📉 Too Low!';
+     displayMessage(guess > secretNumber ? '📈 Too high!' : '📉 Too Low!');
       score = score - 1;
       document.querySelector('.score').textContent = score;
     } else {
-      document.querySelector('.message').textContent = '🎇 You lost the game!';
+    //   document.querySelector('.message').textContent = '🎇 You lost the game!';
+      displayMessage('🎇 You lost the game!');
       document.querySelector('.score').textContent = 0;
     }
   }
 });
+
+
 //     When guess is too high
 //   }else if (guess > secretNumber) {
 //     if (score > 1) {
@@ -80,7 +87,7 @@ document.querySelector('.again').addEventListener('click', function() {
     document.querySelector('.score').textContent = score;
     secretNumber = Math.trunc(Math.random() * 20) + 1;
     document.querySelector('.number').textContent = '?'
-    document.querySelector('.message').textContent = 'Start guessing...';
+    displayMessage('Start guessing...');
     document.querySelector('.guess').value = ""
     document.querySelector('body').style.backgroundColor = '#222';
     document.querySelector('.number').style.width = '15rem';
